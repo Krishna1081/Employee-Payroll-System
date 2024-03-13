@@ -1,7 +1,12 @@
+
 .wrapper{
-    width: 420px;
-    background: yellow;
+    width: 400px;
+    background: rgb(149, 149, 149);
     color: black;
+    border-style: ridge;
+    border-color: rgb(117, 191, 221);
+    border-radius: 20px;
+    padding: 10px 20px;
 }
 
 .wrapper h1{
@@ -21,14 +26,15 @@
     width: 100%;
     background: transparent;
     outline: none;
-    border: 2px solid gray;
+    border: 2px solid rgb(75, 73, 73);
     border-radius: 40px;
     font-size: 16px;
     color: black;
+    padding: 20px 45px 20px 20px ;
 }
 
 .input-box input::placeholder{
-    color: gray;
+    color: rgb(100, 100, 100);
 }
 
 .input-box .icon{
@@ -43,11 +49,13 @@
     display: flex;
     justify-content: space-between;
     font-size: 15px;
+    margin: -15px 0px 15px;
 }
 
 .remember-forgot label input{
     accent-color: black;
     margin-right: 5px;
+    cursor: pointer;
 }
 
 .remember-forgot a{
@@ -57,18 +65,24 @@
 
 .remember-forgot a:hover{
     text-decoration: underline;
+    font-weight: 600;
 }
 
-.wrapper .register{
+.wrapper button{
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
     font-size: 15px;
+    background-color: rgb(149, 149, 149);
+    font-weight: 700;
+    border: 2px solid rgb(75, 73, 73);
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
 
-.register a{
-    text-decoration: none;
-    color: black;
+.wrapper button:hover{
+    background-color: black;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .7);
 }
 
-.register a:hover{
-    margin-left: 2px;
-    text-decoration: underline;
-}
