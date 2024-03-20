@@ -1,12 +1,16 @@
-import React, { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase-config.js";
+import { useState } from "react";
+import { Navigate } from "react-router-dom"; // Import Navigate from react-router-dom
 import "./login.css";
 
 function Register() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [registrationSuccess, setRegistrationSuccess] = useState(false); // State to track registration success
 
   const handleEmailChange = (e) => {
     setRegisterEmail(e.target.value);
@@ -16,8 +20,17 @@ function Register() {
     setRegisterPassword(e.target.value);
   };
 
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const register = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
+
+    if (registerPassword !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -26,15 +39,23 @@ function Register() {
         registerPassword
       );
       console.log("User registered:", userCredential.user);
+      // Set registration success state to true
+      setRegistrationSuccess(true);
     } catch (error) {
       console.error("Registration error:", error.message);
+      setError("Failed to register. Please try again.");
     }
   };
+
+  // If registration was successful, redirect to the dashboard
+  if (registrationSuccess) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
     <div className="Login">
       <div className="wrapper">
-        <form onSubmit={register}> {/* Use onSubmit instead of onClick for form submission */}
+        <form onSubmit={register}>
           <h1>Register</h1>
 
           <div className="input-box">
@@ -59,12 +80,18 @@ function Register() {
             <FaLock />
           </div>
 
-          <div className="remember-forgot">
-            <label>
-              <input type="checkbox" /> Remember me
-            </label>
-            <a href="app.js">Forgot Password?</a>
+          <div className="input-box">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              required
+            />
+            <FaLock />
           </div>
+
+          {error && <div className="error">{error}</div>}
 
           <div className="remember-link">
             <p>
