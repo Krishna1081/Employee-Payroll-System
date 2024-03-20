@@ -1,16 +1,20 @@
-
+import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./login";
 import Register from './register';
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Dashboard from './Dashboard'; // Import the Dashboard component
+import { Route, Routes, BrowserRouter} from "react-router-dom";
 
 function App() {
   return (
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" Component={Login}/>
-          <Route exact path="/register" Component={Register}/>
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
+    </AuthProvider>
   );
 }
 
